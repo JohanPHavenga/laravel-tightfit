@@ -21,6 +21,9 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <link rel="stylesheet" href="{{ url('css/bootstrap.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url('css/style.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url('css/swiper.css') }}" type="text/css" />
@@ -41,8 +44,6 @@
     <link rel="stylesheet" href="{{ url('css/colors.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url('css/custom.css') }}" type="text/css" />
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="stretched">
@@ -84,7 +85,7 @@
                     <div class="container clearfix">
                         <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
                         <ul>
-                            <li class="current"><a href="{{ url('/') }}">Home</a></li>
+                            <li class="current"><a href="{{ route('home') }}">Home</a></li>
                             <li><a href="{{ url('gallery/garagedoors') }}">Garage Doors</a>
                                 <ul>
                                     <li><a href="{{ url('gallery/garagedoors/aluzinc') }}">Aluzinc</a></li>
@@ -103,9 +104,9 @@
                                     <li><a href="{{ url('gallery/gateautomation/centurion') }}">Centurion</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ url('manuals') }}">Manuals</a></li>
-                            <li><a href="{{ url('about') }}">About</a></li>
-                            <li><a href="{{ url('contact') }}">Contact</a></li>
+                            <li><a href="{{ route('manuals') }}">Manuals</a></li>
+                            <li><a href="{{ route('about') }}">About</a></li>
+                            <li><a href="{{ route('contact.show') }}">Contact</a></li>
                         </ul>
                     </div>
                 </nav><!-- #primary-menu end -->
