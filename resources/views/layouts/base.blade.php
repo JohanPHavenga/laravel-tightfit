@@ -85,28 +85,28 @@
                     <div class="container clearfix">
                         <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
                         <ul>
-                            <li class="current"><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="{{ url('gallery/garagedoors') }}">Garage Doors</a>
+                            <li class="current"><a href="{{ route('home') }}"><div>Home</div></a></li>
+                            <li><a href="{{ url('gallery/garagedoors') }}"><div>Garage Doors</div></a>
                                 <ul>
-                                    <li><a href="{{ url('gallery/garagedoors/aluzinc') }}">Aluzinc</a></li>
-                                    <li><a href="{{ url('gallery/garagedoors/aluminium') }}">Aluminium</a></li>
+                                    <li><a href="{{ url('gallery/garagedoors/aluzinc') }}"><div>Aluzinc</div></a></li>
+                                    <li><a href="{{ url('gallery/garagedoors/aluminium') }}"><div>Aluminium</div></a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ url('gallery/doorautomation') }}">Door Automation</a>
+                            <li><a href="{{ url('gallery/doorautomation') }}"><div>Door Automation</div></a>
                                 <ul>
-                                    <li><a href="{{ url('gallery/doorautomation/nice') }}">Nice</a></li>
-                                    <li><a href="{{ url('gallery/doorautomation/centurion') }}">Centurion</a></li>
+                                    <li><a href="{{ url('gallery/doorautomation/nice') }}"><div>Nice</div></a></li>
+                                    <li><a href="{{ url('gallery/doorautomation/centurion') }}"><div>Centurion</div></a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ url('gallery/gateautomation') }}">Gate Automation</a>
+                            <li><a href="{{ url('gallery/gateautomation') }}"><div>Gate Automation</div></a>
                                 <ul>
-                                    <li><a href="{{ url('gallery/gateautomation/nice') }}">Nice</a></li>
-                                    <li><a href="{{ url('gallery/gateautomation/centurion') }}">Centurion</a></li>
+                                    <li><a href="{{ url('gallery/gateautomation/nice') }}"><div>Nice</div></a></li>
+                                    <li><a href="{{ url('gallery/gateautomation/centurion') }}"><div>Centurion</div></a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ route('manuals') }}">Manuals</a></li>
-                            <li><a href="{{ route('about') }}">About</a></li>
-                            <li><a href="{{ route('contact.show') }}">Contact</a></li>
+                            <li><a href="{{ route('manuals') }}"><div>Manuals</div></a></li>
+                            <li><a href="{{ route('about') }}"><div>About</div></a></li>
+                            <li><a href="{{ route('contact.show') }}"><div>Contact</div></a></li>
                         </ul>
                     </div>
                 </nav><!-- #primary-menu end -->

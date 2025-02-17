@@ -2,7 +2,7 @@
     <section id="content">
         <div class="content-wrap-sml">
             <div class="container clearfix">
-                <h1>Manuals Download</h1>
+                <h1>{{ $data['heading'] }}</h1>
                 @if (!empty($files))
                     <p>List of manuals to download</p>
                     @foreach ($files as $folder => $file_list)
@@ -14,7 +14,7 @@
                         </ul>
                     @endforeach
                 @else
-                    <p>No manuals to download at present</p>
+                    <p>No samples to display</p>
                 @endif
 
             </div>

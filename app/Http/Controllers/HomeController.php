@@ -18,6 +18,7 @@ class HomeController extends Controller
 
     public function manuals()
     {
+        $files=[];
         $file_list = Storage::disk('public')->allFiles('manuals');
         foreach ($file_list as $key=>$file) {
             $pieces = explode("/", $file);
