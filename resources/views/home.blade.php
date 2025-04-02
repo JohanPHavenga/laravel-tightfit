@@ -1,4 +1,7 @@
 <x-base-layout>
+    <div class="mt-3">
+        @include('partials.alerts')
+    </div>
     @include('partials.slider')
     <section id="content">
         <div class="content-wrap">

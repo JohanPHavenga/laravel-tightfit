@@ -86,19 +86,19 @@
                         <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
                         <ul>
                             <li class="current"><a href="{{ route('home') }}"><div>Home</div></a></li>
-                            <li><a href="{{ url('gallery/garagedoors') }}"><div>Garage Doors</div></a>
+                            <li><a href=""><div>Garage Doors</div></a>
                                 <ul>
                                     <li><a href="{{ url('gallery/garagedoors/aluzinc') }}"><div>Aluzinc</div></a></li>
                                     <li><a href="{{ url('gallery/garagedoors/aluminium') }}"><div>Aluminium</div></a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ url('gallery/doorautomation') }}"><div>Door Automation</div></a>
+                            <li><a href=""><div>Door Automation</div></a>
                                 <ul>
                                     <li><a href="{{ url('gallery/doorautomation/nice') }}"><div>Nice</div></a></li>
                                     <li><a href="{{ url('gallery/doorautomation/centurion') }}"><div>Centurion</div></a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ url('gallery/gateautomation') }}"><div>Gate Automation</div></a>
+                            <li><a href=""><div>Gate Automation</div></a>
                                 <ul>
                                     <li><a href="{{ url('gallery/gateautomation/nice') }}"><div>Nice</div></a></li>
                                     <li><a href="{{ url('gallery/gateautomation/centurion') }}"><div>Centurion</div></a></li>

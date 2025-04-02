@@ -4,17 +4,24 @@
             <div class="container clearfix">
                 <h1>{{ $data['heading'] }}</h1>
                 @if (!empty($files))
-                    <p>List of manuals to download</p>
-                    @foreach ($files as $folder => $file_list)
-                        <h2>{{ $folder }}</h2>
-                        <ul class="iconlist">
-                            @foreach ($file_list as $file)
-                                <li><i class="icon-download2" style="top: -1px;"></i> <a href="{{ $file['url'] }}">{{ $file['name'] }}</a></li>
-                            @endforeach
-                        </ul>
-                    @endforeach
+                    <p>Below find a sample of the product we install.</p>
+                    <div class="masonry-thumbs grid-container grid-4 has-init-isotope" data-big="4" data-lightbox="gallery" style="position: relative;">
+                        @foreach ($files as $file)
+                            <a class='grid-item' href='{{ url('storage/' . $file) }}' data-lightbox='gallery-item' style='position: absolute; left: 0%; top: 0px;'>
+                                <img src='{{ url('storage/' . $file) }}' alt=''>
+                            </a>
+                        @endforeach
+                    </div>
                 @else
                     <p>No samples to display</p>
+                @endif
+
+                @if (isset($data['supplier_url']))
+                    <div class="row">
+                        <div class="col-12 mt-4"> 
+                            <a href="{{ $data['supplier_url'] }}" class="btn btn-secondary" target="_blank">Supplier Website</a>
+                        </div>
+                    </div>
                 @endif
 
             </div>

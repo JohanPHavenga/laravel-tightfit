@@ -43,6 +43,10 @@ class GalleryController extends Controller
 
         $file_list = Storage::disk('public')->allFiles($dir_to_map);
 
+        if(empty($file_list)) {
+            return redirect()->route("home")->with('failure', 'No gallery found for that type')->status(404);
+        }
+
         return view('gallery')->with(
             [
                 'data' => $data,
