@@ -7,8 +7,8 @@
                     <p>Below find a sample of the product we install.</p>
                     <div class="masonry-thumbs grid-container grid-4 has-init-isotope" data-big="4" data-lightbox="gallery" style="position: relative;">
                         @foreach ($files as $file)
-                            <a class='grid-item' href='{{ url('storage/' . $file) }}' data-lightbox='gallery-item' style='position: absolute; left: 0%; top: 0px;'>
-                                <img src='{{ url('storage/' . $file) }}' alt=''>
+                            <a class='grid-item' href='{{ asset($file) }}' data-lightbox='gallery-item' style='position: absolute; left: 0%; top: 0px;'>
+                                <img src='{{ asset($file) }}' alt=''>
                             </a>
                         @endforeach
                     </div>

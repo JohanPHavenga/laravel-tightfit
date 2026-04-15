@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class GalleryController extends Controller
 {
@@ -41,10 +41,20 @@ class GalleryController extends Controller
             }
         }
 
-        $file_list = Storage::disk('public')->allFiles($dir_to_map);
+        $disk_path = public_path('images/gallery/' . $dir_to_map);
+        $file_list = [];
 
-        if(empty($file_list)) {
-            return redirect()->route("home")->with('failure', 'No gallery found for that type')->status(404);
+        if (is_dir($disk_path)) {
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            foreach (File::allFiles($disk_path) as $file) {
+                if (in_array(strtolower($file->getExtension()), $allowed)) {
+                    $file_list[] = 'images/gallery/' . $dir_to_map . '/' . $file->getRelativePathname();
+                }
+            }
+        }
+
+        if (empty($file_list)) {
+            return redirect()->route("home")->with('failure', 'No gallery found for that type');
         }
 
         return view('gallery')->with(
