@@ -43,6 +43,7 @@
 
     <link rel="stylesheet" href="{{ url('css/colors.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url('css/custom.css') }}" type="text/css" />
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
 
 </head>
 
