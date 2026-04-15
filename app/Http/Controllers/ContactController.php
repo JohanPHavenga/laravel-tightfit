@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Rules\ReCaptchaV3;
 use Illuminate\Http\Request;
 use App\Jobs\SendContactEmail;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +22,6 @@ class ContactController extends Controller
                 'email' => 'required|email',
                 'subject' => 'required',
                 'message' => 'required',
-                // 'g-recaptcha-response' => ['required', new ReCaptchaV3()]
             ],
             [
             ]

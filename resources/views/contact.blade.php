@@ -17,6 +17,7 @@
                                     </div>
                                 <div class="row justify-content-between">
                                     @csrf
+                                    <x-honeypot />
                                     <div class="col-md-6 col-xl-5 mb-3">
                                         <label class="required fw-medium mb-1" for="name">Full Name</label>
                                         <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name"
@@ -56,8 +57,7 @@
                                     <div class="col-md-12 col-xl-12">
                                         <input type="hidden" class="" name="subject" value="Website Contact Form">
                                         <!-- Start Submit Button -->
-                                        <button class="btn btn-secondary btn-md d-inline-flex hstack gap-2 mt-4 g-recaptcha"
-                                            data-sitekey="{{ config('services.recaptcha_v3.siteKey') }}" data-callback='onSubmit' data-action='submit'>
+                                        <button class="btn btn-secondary btn-md d-inline-flex hstack gap-2 mt-4" type="submit">
                                             <span>Send message</span>
                                         </button>
                                         <!-- /.End Submit Button -->
