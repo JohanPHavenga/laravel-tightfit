@@ -87,7 +87,7 @@
                     </div>
                     <div>
                         <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Phone</h3>
-                        <a href="tel:+27828753354" class="text-sm text-gray-700 hover:text-brand-blue transition-colors">+27 (82) 875 3354</a>
+                        <a href="https://wa.me/27828753354" class="text-sm text-gray-700 hover:text-brand-blue transition-colors">+27 (82) 875 3354</a>
                     </div>
                     <div>
                         <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Email</h3>

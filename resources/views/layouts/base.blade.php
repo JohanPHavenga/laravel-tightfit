@@ -91,7 +91,7 @@
                     <a href="{{ route('about') }}" class="text-sm font-medium text-gray-600 hover:text-brand-blue transition-colors duration-150">
                         About
                     </a>
-                    <a href="tel:+27828753354" class="text-sm font-medium text-brand-red hover:text-red-700 transition-colors duration-150">
+                    <a href="https://wa.me/27828753354" class="text-sm font-medium text-brand-red hover:text-red-700 transition-colors duration-150">
                         +27 (82) 875 3354
                     </a>
                     <a href="{{ route('contact.show') }}" class="inline-flex items-center px-4 py-2 bg-brand-red text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition-colors duration-150">
@@ -152,7 +152,7 @@
 
                 <a href="{{ route('manuals') }}" class="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Manuals</a>
                 <a href="{{ route('about') }}" class="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">About</a>
-                <a href="tel:+27828753354" class="block px-3 py-2.5 text-sm font-semibold text-brand-red hover:bg-gray-50 rounded-lg">
+                <a href="https://wa.me/27828753354" class="block px-3 py-2.5 text-sm font-semibold text-brand-red hover:bg-gray-50 rounded-lg">
                     +27 (82) 875 3354
                 </a>
                 <div class="pt-1">
@@ -208,7 +208,7 @@
                     <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Contact</h3>
                     <ul class="space-y-3 text-sm">
                         <li>
-                            <a href="tel:+27828753354" class="text-gray-400 hover:text-white transition-colors">+27 (82) 875 3354</a>
+                            <a href="https://wa.me/27828753354" class="text-gray-400 hover:text-white transition-colors">+27 (82) 875 3354</a>
                         </li>
                         <li>
                             <a href="mailto:tightfit@hermanus.co.za" class="text-gray-400 hover:text-white transition-colors">tightfit@hermanus.co.za</a>
