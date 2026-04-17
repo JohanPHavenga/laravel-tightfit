@@ -14,8 +14,8 @@ Route::get('/contact', [ContactController::class, 'show'])->name('contact.show')
 Route::post('/contact', [ContactController::class, 'store'])
     ->middleware(ProtectAgainstSpam::class)
     ->name('contact.store');
-Route::get('/success', [ContactController::class, 'success'])->name('contact.success');
-Route::get('/gallery/{type?}/{product?}', [GalleryController::class, 'index'])->name('gallery');
+Route::get('/gallery', [GalleryController::class, 'galleryIndex'])->name('gallery.index');
+Route::get('/gallery/{type}/{product?}', [GalleryController::class, 'index'])->name('gallery');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

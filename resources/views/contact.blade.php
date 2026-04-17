@@ -1,151 +1,112 @@
 <x-base-layout>
-    <section id="content">
-        <div class="content-wrap-sml">
-            <div class="container clearfix">
-                <div class="form-widget">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1>Contact Us</h1>
-                            <p>Use the form below to send your query to us</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <form method="POST" action="{{ route('contact.store') }}" id="contactForm">
-                                    <div class="px-3 my-3">
-                                        @include('partials.alerts')
-                                    </div>
-                                <div class="row justify-content-between">
-                                    @csrf
-                                    <x-honeypot />
-                                    <div class="col-md-6 col-xl-5 mb-3">
-                                        <label class="required fw-medium mb-1" for="name">Full Name</label>
-                                        <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name"
-                                            placeholder="David Hall" value="{{ old('name', isset($name) ? $name : '') }}" required>
-                                        <!-- Error -->
-                                        @if ($errors->has('name'))
-                                            <div class="text-danger">
-                                                {{ $errors->first('name') }}
-                                            </div>
-                                        @endif
-                                    </div>
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                                    <div class="col-md-12 col-xl-12 mb-3">
-                                        <label class="required fw-medium mb-1" for="email">Your Email</label>
-                                        <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" id="email"
-                                            placeholder="hello@email.com" value="{{ old('email', isset($email) ? $email : '') }}">
-                                        <!-- Error -->
-                                        @if ($errors->has('email'))
-                                            <div class="text-danger">
-                                                {{ $errors->first('email') }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="row justify-content-between">
-                                    <div class="col-md-12 col-xl-12">
-                                        <!-- Start Form Group -->
-                                        <label class="required fw-medium mb-1" for="message">Your Message</label>
-                                        <textarea class="form-control {{ $errors->has('message') ? 'is-invalid' : '' }}" name="message" rows="7" placeholder="Tell us what we can help you with!">{{ old('message') }}</textarea>
-                                        <!-- Error -->
-                                        @if ($errors->has('message'))
-                                            <div class="text-danger">
-                                                {{ $errors->first('message') }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div class="col-md-12 col-xl-12">
-                                        <input type="hidden" class="" name="subject" value="Website Contact Form">
-                                        <!-- Start Submit Button -->
-                                        <button class="btn btn-secondary btn-md d-inline-flex hstack gap-2 mt-4" type="submit">
-                                            <span>Send message</span>
-                                        </button>
-                                        <!-- /.End Submit Button -->
-                                    </div>
-                                </div>
-                            </form>
-                            <?php
-                            // $attributes = ['class' => 'row', 'id' => 'contact'];
-                            // echo form_open(base_url('contact'), $attributes);
-                            
-                            // $field_data = [
-                            //     'name' => 'name',
-                            //     'id' => 'name',
-                            //     'placeholder' => 'Name & Surname',
-                            //     'value' => set_value('name'),
-                            //     'class' => 'form-control',
-                            // ];
-                            // echo '<div class="col-6 form-group">';
-                            // echo form_input($field_data);
-                            // echo '</div>';
-                            
-                            // $field_data = [
-                            //     'name' => 'email',
-                            //     'id' => 'email',
-                            //     'placeholder' => 'Email Address',
-                            //     'value' => set_value('email'),
-                            //     'class' => 'form-control',
-                            // ];
-                            // echo '<div class="col-12 form-group">';
-                            // echo form_input($field_data);
-                            // echo '</div>';
-                            
-                            // $field_data = [
-                            //     'name' => 'message',
-                            //     'id' => 'message',
-                            //     'cols' => '10',
-                            //     'rows' => '6',
-                            //     'placeholder' => 'Message',
-                            //     'value' => set_value('message'),
-                            //     'class' => 'form-control',
-                            // ];
-                            // echo '<div class="col-12 form-group">';
-                            // echo form_textarea($field_data);
-                            // echo '</div>';
-                            
-                            // echo "<div class='col-12 form-group'>";
-                            // echo "<div class='g-recaptcha' data-sitekey='6LfdHsoiAAAAACWdAHZDmH4cUGzUzBc1LnNbIApf'></div>";
-                            // echo '</div>';
-                            
-                            // $field_data = [
-                            //     'id' => 'send',
-                            //     'class' => 'btn btn-secondary',
-                            //     'value' => 'Submit',
-                            // ];
-                            // echo '<div class="col-12">';
-                            // echo form_submit($field_data);
-                            // echo '</div>';
-                            // echo form_close();
-                            ?>
-                        </div>
-                        <div class="col-lg-4 ps-lg-4">
+            <!-- Heading -->
+            <div class="mb-10">
+                <h1 class="text-3xl font-bold text-gray-900">Contact Us</h1>
+                <p class="mt-2 text-gray-500">Use the form below to send us a message and we'll get back to you shortly.</p>
+            </div>
 
-                            <address>
-                                <strong>Address:</strong><br>
-                                Unit 9 Alexway Complex, <br>
-                                4 Roman Close, Hermanus<br>
-                            </address>
-                            <abbr title="Phone Number"><strong>Phone:</strong></abbr> <a href="tel:+27828753354">+27 (82) 875 3354</a><br>
-                            <abbr title="Fax"><strong>Fax:</strong></abbr> 086 645 0000<br>
-                            <abbr title="Email Address"><strong>Email:</strong></abbr>
-                            <a href="mailto:tightfit@hermanus.co.za">tightfit@hermanus.co.za</a>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
-                            <div class="widget border-0 pt-0">
+                <!-- Form -->
+                <div class="lg:col-span-2">
+                    <form method="POST" action="{{ route('contact.store') }}">
+                        @csrf
+                        <x-honeypot />
 
-                                <a href="https://www.facebook.com/tightfitgaragedoors" class="social-icon si-small si-dark si-facebook">
-                                    <i class="icon-facebook"></i>
-                                    <i class="icon-facebook"></i>
-                                </a>
+                        <div class="space-y-5">
 
-                                <a href="https://www.linkedin.com/in/tight-fit-garage-doors-home-automation-hermanus-42b4537b/" class="social-icon si-small si-dark si-linkedin">
-                                    <i class="icon-linkedin"></i>
-                                    <i class="icon-linkedin"></i>
-                                </a>
-
+                            <!-- Name -->
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value="{{ old('name') }}"
+                                    placeholder="David Hall"
+                                    class="w-full rounded-lg border px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition {{ $errors->has('name') ? 'border-red-400 bg-red-50' : 'border-gray-300' }}"
+                                >
+                                @error('name')
+                                    <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
+
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Email Address</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value="{{ old('email') }}"
+                                    placeholder="hello@email.com"
+                                    class="w-full rounded-lg border px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition {{ $errors->has('email') ? 'border-red-400 bg-red-50' : 'border-gray-300' }}"
+                                >
+                                @error('email')
+                                    <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Message -->
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1.5">Message</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    rows="6"
+                                    placeholder="Tell us what we can help you with…"
+                                    class="w-full rounded-lg border px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition resize-none {{ $errors->has('message') ? 'border-red-400 bg-red-50' : 'border-gray-300' }}"
+                                >{{ old('message') }}</textarea>
+                                @error('message')
+                                    <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <input type="hidden" name="subject" value="Website Contact Form">
+
+                            <button type="submit" class="inline-flex items-center px-6 py-3 bg-brand-red text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition-colors duration-150">
+                                Send Message
+                            </button>
+
                         </div>
+                    </form>
+                </div>
+
+                <!-- Contact info sidebar -->
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Address</h3>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            Unit 9 Alexway Complex,<br>
+                            4 Roman Close,<br>
+                            Hermanus
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Phone</h3>
+                        <a href="tel:+27828753354" class="text-sm text-gray-700 hover:text-brand-blue transition-colors">+27 (82) 875 3354</a>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Email</h3>
+                        <a href="mailto:tightfit@hermanus.co.za" class="text-sm text-gray-700 hover:text-brand-blue transition-colors">tightfit@hermanus.co.za</a>
+                    </div>
+                    <div class="flex gap-3 pt-2">
+                        <a href="https://www.facebook.com/tightfitgaragedoors" class="text-gray-400 hover:text-brand-blue transition-colors" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/tight-fit-garage-doors-home-automation-hermanus-42b4537b/" class="text-gray-400 hover:text-brand-blue transition-colors" aria-label="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>

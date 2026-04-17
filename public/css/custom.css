@@ -1,7 +1,6 @@
-.content-wrap-sml {
-    padding: 40px 0;
-}
+/* Hide Alpine x-show elements before Alpine initialises */
+[x-cloak] { display: none !important; }
 
-p {
-    font-size: 1.1em;
-}
+/* Kill Animsition page loader and transitions */
+.animsition-loading { display: none !important; }
+.animsition { opacity: 1 !important; animation: none !important; transition: none !important; }

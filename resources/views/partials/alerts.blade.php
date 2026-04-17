@@ -1,46 +1,27 @@
-<!-- start general alerts -->
-<!-- success -->
-@if (Session::has('success'))
-    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-        <i class="fa-solid fa-circle-check"></i>
-        <div class="ms-2">
-            {{ Session::get('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
-@endif
-<!-- warning -->
 @if (Session::has('warning'))
-    <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show" role="alert">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <div class="ms-2">
-            {{ Session::get('warning') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+    <div class="flex items-start gap-3 rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800" role="alert">
+        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+        <span>{{ Session::get('warning') }}</span>
     </div>
 @endif
-<!-- failure -->
+
 @if (Session::has('failure'))
-    <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <div class="ms-2">
-            {{ Session::get('failure') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+    <div class="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span>{{ Session::get('failure') }}</span>
     </div>
 @endif
-<!-- errors -->
+
 @if ($errors->any())
-    <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show mt-3 mb-0" role="alert">
-        <div class="ms-2">
-            {{-- <strong>Validation Failed</strong>: --}}
-            <ul class="mb-0 mt-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+    <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+        <ul class="space-y-1 list-disc list-inside">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif
-<!-- end /. general alerts -->

@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\File;
 
 class GalleryController extends Controller
 {
+    public function galleryIndex()
+    {
+        return view('gallery-index');
+    }
+
     public function index($type = null, $product = null)
     {
 

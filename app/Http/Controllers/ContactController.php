@@ -40,12 +40,7 @@ class ContactController extends Controller
                 ]
             ))->onQueue('tightfit');
 
-            return redirect()->route('contact.success')->with('success', 'Your contact request has been send.');
+            return redirect()->route('contact.show')->with('success', 'Your message has been sent. We\'ll be in touch shortly.');
         }
-    }
-
-    public function success()
-    {
-        return view('notice');
     }
 }
