@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Jobs\SendContactEmail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
@@ -38,7 +38,7 @@ class ContactController extends Controller
                     'email' => $request->get('email'),
                     'message' => nl2br($request->get('message')),
                 ]
-            ));
+            ))->onQueue('tightfit');
 
             return redirect()->route('contact.success')->with('success', 'Your contact request has been send.');
         }

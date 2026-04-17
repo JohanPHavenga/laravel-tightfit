@@ -6,13 +6,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 
 class ContactEmail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $data;
 
     /**
@@ -29,8 +29,11 @@ class ContactEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->data['subject'],            
-            from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
+            subject: $this->data['subject'],
+            from: new Address(
+                env('MAIL_FROM_ADDRESS') ?? config('mail.from.address'),
+                env('MAIL_FROM_NAME') ?? config('mail.from.name')
+            ),
             replyTo: [
                 new Address($this->data['email'], $this->data['name']),
             ],
@@ -43,7 +46,7 @@ class ContactEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            html: 'emails.contact',             
+            html: 'emails.contact',
             text: 'emails.contact-text',
             with: [
                 'name' => $this->data['name'],
@@ -57,7 +60,7 @@ class ContactEmail extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int, Attachment>
      */
     public function attachments(): array
     {
