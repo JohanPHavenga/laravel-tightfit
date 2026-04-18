@@ -17,7 +17,7 @@
     "require": {
         "php": "^8.2",
         "laravel/breeze": "^2.3",
-        "laravel/framework": "^11",
+        "laravel/framework": "^12",
         "laravel/tinker": "^2.9",
         "spatie/laravel-honeypot": "^4.7"
     },
