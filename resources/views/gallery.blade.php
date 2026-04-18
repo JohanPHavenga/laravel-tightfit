@@ -40,5 +40,4 @@
             @endif
         </div>
     </section>
-
 </x-base-layout>
