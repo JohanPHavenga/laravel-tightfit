@@ -38,7 +38,7 @@ class ContactController extends Controller
                     'email' => $request->get('email'),
                     'message' => nl2br($request->get('message')),
                 ]
-            ))->onQueue('tightfit');
+            ));
 
             return redirect()->route('contact.show')->with('success', 'Your message has been sent. We\'ll be in touch shortly.');
         }
