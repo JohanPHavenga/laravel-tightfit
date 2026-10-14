@@ -69,3 +69,7 @@ Departure from the plan: the plan named the recipient config `mail.to.address`. 
 
 - Deploy, then on production: `php artisan migrate`, `contact:import-queued`, `contact:send-backlog-summary --preview-to=… --exclude-email=…`, then the real send.
 - The manuals link bug (`url($file)` in `HomeController::manuals()`), Sentry, deploy scripts.
+
+## 2026-10-14 — Sentry on production only
+
+- Added sentry/sentry-laravel; `Integration::handles($exceptions)` in bootstrap/app.php. DSN set only in the production .env (`SENTRY_LARAVEL_DSN`, `SENTRY_SEND_DEFAULT_PII=true`); local leaves it blank. `SENTRY_RELEASE` comes from deploy/deploy.sh (git SHA) and must never be put in .env. No config/sentry.php: the package defaults apply.
