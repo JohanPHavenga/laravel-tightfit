@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\ContactSubmission;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
@@ -13,29 +14,20 @@ class ContactEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
-
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
+    public function __construct(public ContactSubmission $submission) {}
 
     /**
-     * Get the message envelope.
+     * Get the message envelope. The From address comes from config('mail.from').
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->data['subject'],
-            from: new Address(
-                env('MAIL_FROM_ADDRESS') ?? config('mail.from.address'),
-                env('MAIL_FROM_NAME') ?? config('mail.from.name')
-            ),
+            subject: 'Website enquiry from '.$this->submission->name,
             replyTo: [
-                new Address($this->data['email'], $this->data['name']),
+                new Address($this->submission->email, $this->submission->name),
             ],
         );
     }
@@ -49,10 +41,12 @@ class ContactEmail extends Mailable
             html: 'emails.contact',
             text: 'emails.contact-text',
             with: [
-                'name' => $this->data['name'],
-                'email' => $this->data['email'],
-                'mail_message' => $this->data['message'],
-                'sendto_email' => $this->data['email'],
+                'name' => $this->submission->name,
+                'email' => $this->submission->email,
+                'mail_message' => $this->submission->message,
+                'submitted_at' => $this->submission->created_at
+                    ->timezone('Africa/Johannesburg')
+                    ->format('j M Y, H:i'),
             ],
         );
     }

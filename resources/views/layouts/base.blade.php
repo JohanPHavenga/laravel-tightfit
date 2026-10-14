@@ -85,9 +85,6 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('manuals') }}" class="text-sm font-medium text-gray-600 hover:text-brand-blue transition-colors duration-150">
-                        Manuals
-                    </a>
                     <a href="{{ route('about') }}" class="text-sm font-medium text-gray-600 hover:text-brand-blue transition-colors duration-150">
                         About
                     </a>
@@ -150,7 +147,6 @@
                     </div>
                 </div>
 
-                <a href="{{ route('manuals') }}" class="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Manuals</a>
                 <a href="{{ route('about') }}" class="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">About</a>
                 <a href="https://wa.me/27828753354" class="block px-3 py-2.5 text-sm font-semibold text-brand-red hover:bg-gray-50 rounded-lg">
                     +27 (82) 875 3354
@@ -227,7 +223,6 @@
                         <li><a href="{{ url('gallery/garagedoors') }}" class="text-gray-400 hover:text-white transition-colors">Garage Doors</a></li>
                         <li><a href="{{ url('gallery/doorautomation') }}" class="text-gray-400 hover:text-white transition-colors">Door Automation</a></li>
                         <li><a href="{{ url('gallery/gateautomation') }}" class="text-gray-400 hover:text-white transition-colors">Gate Automation</a></li>
-                        <li><a href="{{ route('manuals') }}" class="text-gray-400 hover:text-white transition-colors">Manuals</a></li>
                         <li><a href="{{ route('about') }}" class="text-gray-400 hover:text-white transition-colors">About</a></li>
                         <li><a href="{{ route('contact.show') }}" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
                     </ul>

@@ -109,8 +109,23 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'tightfit@hermanus.co.za'),
-        'name' => env('MAIL_FROM_NAME', 'TightFit'),
+        'address' => env('MAIL_FROM_ADDRESS', 'website@tightfit.co.za'),
+        'name' => env('MAIL_FROM_NAME', 'TightFit Website'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Form Recipient
+    |--------------------------------------------------------------------------
+    |
+    | Where website enquiries are delivered. This is where the owner reads
+    | mail; it is never used as a From address. Not under a top-level "to"
+    | key: Laravel treats mail.to as a global "always send to" override.
+    |
+    */
+
+    'contact' => [
+        'to' => env('MAIL_TO_ADDRESS', 'tightfit@hermanus.co.za'),
     ],
 
 ];
