@@ -18,6 +18,7 @@
         "php": "^8.2",
         "laravel/framework": "^12",
         "laravel/tinker": "^2.9",
+        "sentry/sentry-laravel": "^4.29",
         "spatie/laravel-honeypot": "^4.7"
     },
     "require-dev": {
