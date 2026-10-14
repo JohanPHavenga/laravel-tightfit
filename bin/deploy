@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Deploy Tightfit (tightfit.co.za) to Denver from WSL.
+#
+#     ./bin/deploy             # deploys main
+#     ./bin/deploy some-branch
+#
+# Needs a `denver` alias in ~/.ssh/config (or set TIGHTFIT_REMOTE=nitro@139.162.133.108).
+# The real work happens in deploy/deploy.sh on the server.
+set -euo pipefail
+ssh "${TIGHTFIT_REMOTE:-denver}" "bash /var/www/tightfit.co.za/deploy/deploy.sh ${1:-main}"

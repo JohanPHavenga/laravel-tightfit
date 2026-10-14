@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+#
+# pull-prod: refresh your local copy with Tightfit's production DB and storage/app/public.
+#
+# Only READS from production. Locally it replaces every table in the production
+# dump and mirrors storage/app/public (local-only files there are deleted). The
+# production DB password never leaves the server: the dump runs on Denver and
+# reads its credentials from the server's own .env.
+#
+# The tables jobs, sessions, cache and cache_locks come across EMPTY (structure
+# only). Pending jobs are customers' contact emails and must never be replayed
+# from a laptop. contact_submissions, failed_jobs and users come across in full.
+#
+# Usage:  bin/pull-prod [--yes] [--skip-media]
+#
+# Needs: a `denver` alias in ~/.ssh/config (or TIGHTFIT_REMOTE=nitro@139.162.133.108),
+# a local .env with working DB_* settings, and the local database already created.
+set -euo pipefail
+
+REMOTE="${TIGHTFIT_REMOTE:-denver}"
+REMOTE_DIR="${TIGHTFIT_REMOTE_DIR:-/var/www/tightfit.co.za}"
+LOCAL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+NO_DATA_TABLES="jobs sessions cache cache_locks"
+
+SKIP_CONFIRM=0
+SKIP_MEDIA=0
+for arg in "$@"; do
+  case "$arg" in
+    --yes)        SKIP_CONFIRM=1 ;;
+    --skip-media) SKIP_MEDIA=1 ;;
+    -h|--help)    sed -n '3,17p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    *)            echo "Unknown flag: $arg" >&2; exit 2 ;;
+  esac
+done
+
+step() { printf '\n\033[1;36m▶ %s\033[0m\n' "$*"; }
+ok()   { printf '\033[1;32m✓ %s\033[0m\n' "$*"; }
+fail() { printf '\033[1;31m✗ %s\033[0m\n' "$*" >&2; exit 1; }
+envval() { grep -E "^$1=" "$LOCAL_DIR/.env" | tail -n1 | cut -d= -f2- | sed -E 's/^"(.*)"$/\1/'; }
+
+# === pre-flight ===
+step "Pre-flight"
+[ -f "$LOCAL_DIR/.env" ] || fail "No .env in $LOCAL_DIR"
+[ "$(envval APP_ENV)" != "production" ] || fail "The local .env says APP_ENV=production — refusing to run."
+[ "$(envval MAIL_MAILER)" = "log" ] || fail "The local .env must have MAIL_MAILER=log — production data holds real customers' addresses."
+command -v mysql >/dev/null || fail "mysql client not installed"
+command -v rsync >/dev/null || fail "rsync not installed (sudo apt install rsync)"
+
+LOCAL_DB="$(envval DB_DATABASE)"
+LOCAL_CNF="$(mktemp)"
+trap 'rm -f "$LOCAL_CNF"' EXIT
+printf '[client]\nhost=%s\nport=%s\nuser=%s\npassword="%s"\n' \
+  "$(envval DB_HOST)" "$(envval DB_PORT)" "$(envval DB_USERNAME)" "$(envval DB_PASSWORD)" > "$LOCAL_CNF"
+
+ssh -o BatchMode=yes -o ConnectTimeout=5 "$REMOTE" true 2>/dev/null \
+  || fail "Can't SSH to '$REMOTE' with a key. Add it to ~/.ssh/config (see bin/deploy)."
+mysql --defaults-extra-file="$LOCAL_CNF" -e "SELECT 1" "$LOCAL_DB" >/dev/null \
+  || fail "Can't connect to local database '$LOCAL_DB' with the .env credentials — does it exist?"
+ok "SSH to $REMOTE and local DB '$LOCAL_DB' both reachable"
+
+# === confirmation ===
+if [ "$SKIP_CONFIRM" -ne 1 ]; then
+  echo ""
+  echo "This will:"
+  echo "  • replace the tables in your LOCAL database '$LOCAL_DB' with production's"
+  echo "    ($NO_DATA_TABLES: structure only)"
+  [ "$SKIP_MEDIA" -ne 1 ] && echo "  • mirror $REMOTE:$REMOTE_DIR/storage/app/public → $LOCAL_DIR/storage/app/public"
+  echo ""
+  read -rp "Continue? [y/N] " confirm
+  [[ "$confirm" == "y" || "$confirm" == "Y" ]] || fail "Aborted"
+fi
+
+# === 1. database ===
+step "1/3  Streaming the production DB → local '$LOCAL_DB'"
+# shellcheck disable=SC2086  # the table list is meant to split into separate arguments
+ssh "$REMOTE" bash -s -- "$REMOTE_DIR" $NO_DATA_TABLES <<'ON_SERVER' | gunzip | mysql --defaults-extra-file="$LOCAL_CNF" "$LOCAL_DB"
+set -euo pipefail
+cd "$1"
+shift
+NO_DATA=("$@")
+v() { grep -E "^$1=" .env | tail -n1 | cut -d= -f2- | sed -E 's/^"(.*)"$/\1/'; }
+CNF="$(mktemp)"
+trap 'rm -f "$CNF"' EXIT
+printf '[client]\nhost=%s\nport=%s\nuser=%s\npassword="%s"\n' \
+  "$(v DB_HOST)" "$(v DB_PORT)" "$(v DB_USERNAME)" "$(v DB_PASSWORD)" > "$CNF"
+DB="$(v DB_DATABASE)"
+OPTS=(--defaults-extra-file="$CNF" --single-transaction --no-tablespaces
+      --set-gtid-purged=OFF --default-character-set=utf8mb4)
+IGNORE=()
+for t in "${NO_DATA[@]}"; do IGNORE+=(--ignore-table="$DB.$t"); done
+# Only tables that exist: a missing table would make the --no-data dump fail.
+EXISTING=()
+for t in "${NO_DATA[@]}"; do
+  [ -n "$(mysql --defaults-extra-file="$CNF" -N -e "SHOW TABLES LIKE '$t'" "$DB")" ] && EXISTING+=("$t")
+done
+{
+  mysqldump "${OPTS[@]}" "${IGNORE[@]}" "$DB"
+  [ "${#EXISTING[@]}" -eq 0 ] || mysqldump "${OPTS[@]}" --no-data "$DB" "${EXISTING[@]}"
+} | gzip
+ON_SERVER
+ok "Database imported"
+
+# === 2. media ===
+if [ "$SKIP_MEDIA" -ne 1 ]; then
+  step "2/3  Mirroring storage/app/public"
+  mkdir -p "$LOCAL_DIR/storage/app/public"
+  rsync -az --delete --info=progress2 \
+    "$REMOTE:$REMOTE_DIR/storage/app/public/" "$LOCAL_DIR/storage/app/public/"
+  ok "Storage mirrored"
+else
+  step "2/3  Skipped storage (--skip-media)"
+fi
+
+# === 3. local housekeeping ===
+step "3/3  Local housekeeping"
+cd "$LOCAL_DIR"
+php artisan storage:link >/dev/null 2>&1 || true
+php artisan migrate --force      # the repo can be ahead of production
+php artisan optimize:clear >/dev/null
+
+count() { mysql --defaults-extra-file="$LOCAL_CNF" -N -e "SELECT COUNT(*) FROM $1" "$LOCAL_DB" 2>/dev/null || echo "?"; }
+ok "Done — $(count contact_submissions) contact submissions, $(count failed_jobs) failed jobs locally."
